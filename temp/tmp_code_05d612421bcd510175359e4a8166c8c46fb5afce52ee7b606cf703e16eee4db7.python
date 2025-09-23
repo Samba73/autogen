@@ -1,0 +1,41 @@
+def merge_sort(lst):
+    # Base case: if the length of the list is 1 or less, return the list (since it's already sorted)
+    if len(lst) <= 1:
+        return lst
+
+    # Find the middle point of the list
+    mid = len(lst) // 2
+
+    # Divide the list into two halves
+    left_half = merge_sort(lst[:mid])
+    right_half = merge_sort(lst[mid:])
+
+    # Merge the two sorted halves back together
+    return merge(left_half, right_half)
+
+
+def merge(left, right):
+    merged = []
+    left_index = 0
+    right_index = 0
+
+    # Compare elements from both lists and add the smaller one to the merged list
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] <= right[right_index]:
+            merged.append(left[left_index])
+            left_index += 1
+        else:
+            merged.append(right[right_index])
+            right_index += 1
+
+    # If there are any remaining elements in either list, add them to the merged list
+    merged.extend(left[left_index:])
+    merged.extend(right[right_index:])
+
+    return merged
+
+
+# Test cases
+print("Test 1:", merge_sort([3, 2, 9, 6, 5, 1]))
+print("Test 2:", merge_sort([-1, 0, 3, 4, -2, 5]))
+print("Test 3:", merge_sort([10, 7, 8, 9, 1, 5]))
